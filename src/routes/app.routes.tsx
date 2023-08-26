@@ -1,4 +1,5 @@
 import { useTheme } from "native-base";
+import { Platform } from "react-native";
 
 import {
   BottomTabNavigationProp,
@@ -34,7 +35,21 @@ export function AppRoutes() {
   const iconSize = sizes[6];
 
   return (
-    <Navigator>
+    <Navigator
+      screenOptions={{
+        headerShown: false,
+        tabBarShowLabel: false,
+        tabBarActiveTintColor: colors.green[500],
+        tabBarInactiveTintColor: colors.gray[200],
+        tabBarLabelStyle: {
+          backgroundColor: colors.gray[600],
+          borderTopWidth: 0,
+          height: Platform.OS === "android" ? "auto" : 96,
+          paddingBottom: sizes[9],
+          paddingTop: sizes[7],
+        },
+      }}
+    >
       <Screen
         name="home"
         component={Home}
@@ -57,9 +72,9 @@ export function AppRoutes() {
         name="profile"
         component={Profile}
         options={{
-          tabBarIcon: ({ color }) => {
-            <ProfileSvg fill={color} width={iconSize} height={iconSize} />;
-          },
+          tabBarIcon: ({ color }) => (
+            <ProfileSvg fill={color} width={iconSize} height={iconSize} />
+          ),
         }}
       />
       <Screen
